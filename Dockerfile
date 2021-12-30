@@ -18,10 +18,8 @@ RUN apt-get install -y build-essential cmake \
 RUN locale-gen en_US.UTF-8
 
 WORKDIR /tmp/FreeLing-4.2
-RUN mkdir build && cd build && cmake ..
-RUN cd build && make -j 8 install
-RUN rm -rf /tmp/FreeLing-4.2
-RUN cp /usr/local/share/freeling/config/es.cfg /usr/local/share/freeling/config/main.cfg
+RUN mkdir build && cd build && cmake .. && make -j 8 install && rm -rf /tmp/FreeLing-4.2 \
+    cp /usr/local/share/freeling/config/es.cfg /usr/local/share/freeling/config/main.cfg
 
 EXPOSE 50005
-CMD analyze -f /usr/local/share/freeling/config/main.cfg --port 50005
+CMD analyze -f /usr/local/share/freeling/config/main.cfg --server --port 50005
